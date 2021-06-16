@@ -206,7 +206,7 @@ public class DruidMycatRouteStrategy extends AbstractRouteStrategy {
 				}else{
 					rrsResult = directRoute(rrs,ctx,schema,druidParser,statement,cachePool);
 				}
-			}else if(subQuerySize==1){     //只涉及一张表的子查询,使用  MiddlerResultHandler 获取中间结果后,改写原有 sql 继续执行 TODO 后期可能会考虑多个子查询的情况.
+			}else if(visitor.getSubQuerys().size() ==1){     //只涉及一张表的子查询,使用  MiddlerResultHandler 获取中间结果后,改写原有 sql 继续执行 TODO 后期可能会考虑多个子查询的情况.
 				SQLSelect sqlselect = visitor.getSubQuerys().iterator().next();
 				if(!visitor.getRelationships().isEmpty()){     // 当 inner query  和 outer  query  有关联条件时,暂不支持
 					String err = "In case of slice table,sql have different rules,the relationship condition is not supported.";

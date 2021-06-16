@@ -223,8 +223,8 @@ public class NonBlockingSession implements Session {
     }
 
     public void commit() {
-//        final int initCount = target.size();
-        if (target.size() <= 0) {
+        final int initCount = target.size();
+        if (initCount <= 0) {
             ByteBuffer buffer = source.allocate();
             buffer = source.writeToBuffer(OkPacket.OK, buffer);
             source.write(buffer);
@@ -237,14 +237,14 @@ public class NonBlockingSession implements Session {
             	source.setAutocommit(true);
             }
             return;
-        } else if (target.size() == 1) {
+        } else if (initCount == 1) {
         	//huangyiming add 避免出现jdk版本冲突
             BackendConnection con = target.values().iterator().next();
             commitHandler.commit(con);
         } else {
 
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("multi node commit to send ,total " + target.size());
+                LOGGER.debug("multi node commit to send ,total " + initCount);
             }
             checkDistriTransaxAndExecute();
         }
