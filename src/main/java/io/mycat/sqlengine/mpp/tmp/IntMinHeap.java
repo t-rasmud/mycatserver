@@ -83,6 +83,7 @@ public class IntMinHeap {
         }
     }
 
+    @SuppressWarnings("iteration:method.invocation")    // next called in loop: loop index always less than Iterator size
     public static void main(String[] args) {
         Set<Integer> set = new HashSet<Integer>();
         int dataCount = 30;

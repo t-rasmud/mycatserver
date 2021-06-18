@@ -59,6 +59,7 @@ import io.mycat.server.parser.ServerParse;
 import io.mycat.sqlengine.mpp.ColumnRoutePair;
 import io.mycat.sqlengine.mpp.LoadData;
 import io.mycat.util.StringUtil;
+import org.checkerframework.checker.nonempty.qual.NonEmpty;
 
 /**
  * 从ServerRouterUtil中抽取的一些公用方法，路由解析工具类
@@ -1092,7 +1093,7 @@ public class RouterUtil {
 	 * @return dataNodeIndex -&gt; [partitionKeysValueTuple+]
 	 */
 	public static Set<String> ruleByJoinValueCalculate(RouteResultset rrs, TableConfig tc,
-			Set<ColumnRoutePair> colRoutePairSet) throws SQLNonTransientException {
+			@NonEmpty Set<ColumnRoutePair> colRoutePairSet) throws SQLNonTransientException {
 
 		String joinValue = "";
 
