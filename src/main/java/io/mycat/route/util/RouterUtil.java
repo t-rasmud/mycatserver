@@ -179,6 +179,7 @@ public class RouterUtil {
 	 * @return RouteResultset
 	 * @author aStoneGod
 	 */
+	@SuppressWarnings("iteration:method.invocation")	// next called in loop: loop index always less than Iterator size
 	public static RouteResultset routeToDDLNode(RouteResultset rrs, int sqlType, String stmt,SchemaConfig schema) throws SQLSyntaxErrorException {
 		stmt = getFixedSql(stmt);
 		String tablename = "";
