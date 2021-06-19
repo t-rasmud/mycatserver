@@ -2,14 +2,7 @@ package io.mycat.route.impl;
 
 import java.sql.SQLNonTransientException;
 import java.sql.SQLSyntaxErrorException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -197,7 +190,8 @@ public class DruidMycatRouteStrategy extends AbstractRouteStrategy {
 			}
 			rrsResult = directRoute(rrs,ctx,schema,druidParser,statement,cachePool);
 		}else{
-			int subQuerySize = visitor.getSubQuerys().size();
+			Queue<SQLSelect> sq = visitor.getSubQuerys();
+			int subQuerySize = sq.size();
 			if(subQuerySize==0&&ctx.getTables().size()==2){ //两表关联,考虑使用catlet
 				if(!visitor.getRelationships().isEmpty()){
 					rrs.setCacheAble(false);
@@ -207,7 +201,7 @@ public class DruidMycatRouteStrategy extends AbstractRouteStrategy {
 					rrsResult = directRoute(rrs,ctx,schema,druidParser,statement,cachePool);
 				}
 			}else if(subQuerySize==1){     //只涉及一张表的子查询,使用  MiddlerResultHandler 获取中间结果后,改写原有 sql 继续执行 TODO 后期可能会考虑多个子查询的情况.
-				SQLSelect sqlselect = visitor.getSubQuerys().iterator().next();
+				SQLSelect sqlselect = sq.iterator().next();
 				if(!visitor.getRelationships().isEmpty()){     // 当 inner query  和 outer  query  有关联条件时,暂不支持
 					String err = "In case of slice table,sql have different rules,the relationship condition is not supported.";
 					LOGGER.error(err);

@@ -15,6 +15,7 @@ import com.alibaba.druid.stat.TableStat.Name;
 import io.mycat.route.util.RouterUtil;
 import io.mycat.sqlengine.mpp.ColumnRoutePair;
 import io.mycat.sqlengine.mpp.RangeValue;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * druid parser result
@@ -62,6 +63,7 @@ public class DruidShardingParseInfo {
 		this.sql = sql;
 	}
 
+	@SideEffectFree
 	public List<String> getTables() {
 		return tables;
 	}

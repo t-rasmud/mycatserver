@@ -1,7 +1,9 @@
 package io.mycat.route.parser.druid;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,7 @@ import com.alibaba.druid.stat.TableStat.Column;
 import com.alibaba.druid.stat.TableStat.Condition;
 import com.alibaba.druid.stat.TableStat.Mode;
 import com.alibaba.druid.stat.TableStat.Relationship;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 import io.mycat.route.util.RouterUtil;
 
@@ -71,6 +74,7 @@ public class MycatSchemaStatVisitor extends MySqlSchemaStatVisitor {
     private Queue<SQLSelect> subQuerys = new LinkedList<>();  //子查询集合
 	private boolean hasChange = false; // 是否有改写sql
 	private boolean subqueryRelationOr = false;   //子查询存在关联条件的情况下，是否有 or 条件
+	protected final HashMap<TableStat.Name, TableStat> tableStats = new LinkedHashMap<TableStat.Name, TableStat>();
 	
 	private void reset() {
 		this.conditions.clear();
@@ -1160,6 +1164,7 @@ public class MycatSchemaStatVisitor extends MySqlSchemaStatVisitor {
 		return null;
     }
 
+    @SideEffectFree
     public Queue<SQLSelect> getSubQuerys() {
 		return subQuerys;
 	}

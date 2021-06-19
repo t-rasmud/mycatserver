@@ -93,6 +93,7 @@ import io.mycat.util.ExecutorUtil;
 import io.mycat.util.NameableExecutor;
 import io.mycat.util.TimeUtil;
 import io.mycat.util.ZKUtils;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * @author mycat
@@ -137,6 +138,7 @@ public class MycatServer {
      */
     private MyCatMemory myCatMemory = null;
 
+    @SideEffectFree
     public static final MycatServer getInstance() {
         return INSTANCE;
     }
@@ -219,6 +221,7 @@ public class MycatServer {
         return totalNetWorkBufferSize;
     }
 
+    @SideEffectFree
     public BufferPool getBufferPool() {
         return bufferPool;
     }

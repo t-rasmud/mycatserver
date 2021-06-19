@@ -2,6 +2,7 @@ package io.mycat.buffer;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ConcurrentHashMap;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * 缓冲池
@@ -19,5 +20,6 @@ public interface BufferPool {
     public  int getSharedOptsCount();
     public int getChunkSize();
     public ConcurrentHashMap<Long,Long> getNetDirectMemoryUsage();
+    @SideEffectFree
     public BufferArray allocateArray();
 }

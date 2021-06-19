@@ -4,16 +4,7 @@ import com.alibaba.druid.sql.ast.statement.SQLCreateViewStatement.Column;
 import com.alibaba.druid.sql.dialect.mysql.visitor.MySqlASTVisitorAdapter;
 import com.alibaba.druid.sql.visitor.SQLASTVisitor;
 import java.sql.SQLNonTransientException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLExpr;
@@ -32,6 +23,7 @@ import com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
 import com.alibaba.druid.sql.ast.expr.SQLTextLiteralExpr;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLSelectGroupByClause;
+import com.alibaba.druid.sql.ast.statement.SQLSelect;
 import com.alibaba.druid.sql.ast.statement.SQLSelectItem;
 import com.alibaba.druid.sql.ast.statement.SQLSelectOrderByItem;
 import com.alibaba.druid.sql.ast.statement.SQLSelectQuery;
@@ -331,14 +323,14 @@ public class DruidSelectParser extends DefaultDruidParser {
 	 */
 	@Override
 	public boolean afterVisitorParser(RouteResultset rrs, SQLStatement stmt, MycatSchemaStatVisitor visitor) {
-		int subQuerySize = visitor.getSubQuerys().size();
-
+		Queue<SQLSelect> sq = visitor.getSubQuerys();
+		int subQuerySize = sq.size();
 		if(subQuerySize==0&&ctx.getTables().size()==2){ //两表关联,考虑使用catlet
 			if(ctx.getVisitor().getConditions() !=null && ctx.getVisitor().getConditions().size()>0){
 				return true;
 			}
 		}else if(subQuerySize==1){     //只涉及一张表的子查询,使用  MiddlerResultHandler 获取中间结果后,改写原有 sql 继续执行 TODO 后期可能会考虑多个.
-			SQLSelectQuery sqlSelectQuery = visitor.getSubQuerys().iterator().next().getQuery();
+			SQLSelectQuery sqlSelectQuery = sq.iterator().next().getQuery();
 			if(((MySqlSelectQueryBlock)sqlSelectQuery).getFrom() instanceof SQLExprTableSource) {
 				return true;
 			}
