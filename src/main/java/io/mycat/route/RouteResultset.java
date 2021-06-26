@@ -31,7 +31,7 @@ import io.mycat.util.FormatUtil;
 
 import java.io.Serializable;
 import java.util.*;
-import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 /**
  * @author mycat
@@ -193,7 +193,7 @@ public final class RouteResultset implements Serializable {
         return cacheAble;
     }
 
-    @SideEffectFree
+    @SideEffectsOnly("this")
     public void setCacheAble(boolean cacheAble) {
         this.cacheAble = cacheAble;
     }

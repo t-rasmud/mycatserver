@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 
 /**
  * @author mycat
@@ -48,17 +49,19 @@ public class OrderRetainingMap<K, V> extends HashMap<K, V> {
     }
 
     @Override
-    public Collection<V> values() {
+    @SuppressWarnings("nonempty:return")
+    public @PolyNonEmpty Collection<V> values(@PolyNonEmpty OrderRetainingMap<K, V> this) {
         return Collections.unmodifiableList(valueOrder);
     }
 
     @Override
-    public Set<K> keySet() {
+    @SuppressWarnings("nonempty:return")
+    public @PolyNonEmpty Set<K> keySet(@PolyNonEmpty OrderRetainingMap<K, V> this) {
         return Collections.unmodifiableSet(keyOrder);
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
+    public @PolyNonEmpty Set<Entry<K, V>> entrySet(@PolyNonEmpty OrderRetainingMap<K, V> this) {
         throw new UnsupportedOperationException();
     }
 

@@ -237,7 +237,7 @@
 		<dependency>
 			<groupId>org.checkerframework</groupId>
 			<artifactId>checker-qual</artifactId>
-			<version>3.14.1-SNAPSHOT</version>
+			<version>3.15.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.errorprone</groupId>
@@ -399,7 +399,7 @@
 						<path>
 							<groupId>org.checkerframework</groupId>
 							<artifactId>checker</artifactId>
-							<version>3.14.1-SNAPSHOT</version>
+							<version>3.15.1-SNAPSHOT</version>
 						</path>
 					</annotationProcessorPaths>
 					<annotationProcessors>
@@ -409,6 +409,8 @@
 					<compilerArgs>
 						<!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
 						<arg>"-Astubs=/Users/rashmi/iteration-case-studies/mycatserver/slf4j-log.astub"</arg>
+						<arg>"-AwarnUnneededSuppressions"</arg>
+						<arg>"-AsuppressWarnings=contracts.conditional.postcondition,contracts.postcondition"</arg>
 					</compilerArgs>
 				</configuration>
 			</plugin>
@@ -678,7 +680,7 @@
 								<path>
 									<groupId>org.checkerframework</groupId>
 									<artifactId>checker</artifactId>
-									<version>3.14.1-SNAPSHOT</version>
+									<version>3.15.1-SNAPSHOT</version>
 								</path>
 							</annotationProcessorPaths>
 							<annotationProcessors>
@@ -696,7 +698,7 @@
 				<dependency>
 					<groupId>org.checkerframework</groupId>
 					<artifactId>checker</artifactId>
-					<version>3.14.1-SNAPSHOT</version>
+					<version>3.15.1-SNAPSHOT</version>
 				</dependency>
 			</dependencies>
 		</profile>

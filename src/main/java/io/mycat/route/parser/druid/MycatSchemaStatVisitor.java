@@ -58,7 +58,6 @@ import com.alibaba.druid.stat.TableStat.Column;
 import com.alibaba.druid.stat.TableStat.Condition;
 import com.alibaba.druid.stat.TableStat.Mode;
 import com.alibaba.druid.stat.TableStat.Relationship;
-import org.checkerframework.dataflow.qual.SideEffectFree;
 
 import io.mycat.route.util.RouterUtil;
 
@@ -1164,7 +1163,6 @@ public class MycatSchemaStatVisitor extends MySqlSchemaStatVisitor {
 		return null;
     }
 
-    @SideEffectFree
     public Queue<SQLSelect> getSubQuerys() {
 		return subQuerys;
 	}
