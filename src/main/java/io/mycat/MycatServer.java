@@ -138,7 +138,6 @@ public class MycatServer {
      */
     private MyCatMemory myCatMemory = null;
 
-    @SideEffectFree
     public static final MycatServer getInstance() {
         return INSTANCE;
     }
@@ -221,7 +220,6 @@ public class MycatServer {
         return totalNetWorkBufferSize;
     }
 
-    @SideEffectFree
     public BufferPool getBufferPool() {
         return bufferPool;
     }

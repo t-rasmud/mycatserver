@@ -20,6 +20,5 @@ public interface BufferPool {
     public  int getSharedOptsCount();
     public int getChunkSize();
     public ConcurrentHashMap<Long,Long> getNetDirectMemoryUsage();
-    @SideEffectFree
     public BufferArray allocateArray();
 }
